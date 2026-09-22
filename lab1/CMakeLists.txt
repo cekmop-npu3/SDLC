@@ -1,0 +1,42 @@
+cmake_minimum_required(VERSION 3.20)
+project(LifeVolume LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_library(life_core src/LifeModel.cpp src/LifeController.cpp)
+target_include_directories(life_core PUBLIC src)
+
+if(MSVC)
+  target_compile_options(life_core PUBLIC /utf-8 /W4)
+else()
+  target_compile_options(life_core PUBLIC -Wall -Wextra -Wpedantic)
+endif()
+
+if(WIN32)
+  enable_language(RC)
+  add_executable(LifeVolume WIN32 src/main.cpp src/MainView.cpp
+    src/InputDialog.cpp src/app.rc)
+  target_compile_definitions(LifeVolume PRIVATE
+    LIFEVOLUME_WINDOWS UNICODE _UNICODE NOMINMAX)
+  target_link_libraries(LifeVolume PRIVATE life_core user32 gdi32)
+  if(MINGW)
+    target_link_options(LifeVolume PRIVATE -municode)
+  endif()
+elseif(UNIX AND NOT APPLE)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
+  add_executable(LifeVolume src/main.cpp src/LinuxView.cpp)
+  target_compile_definitions(LifeVolume PRIVATE LIFEVOLUME_LINUX)
+  target_link_libraries(LifeVolume PRIVATE life_core PkgConfig::GTK4)
+else()
+  message(FATAL_ERROR "LifeVolume supports Windows and Linux only")
+endif()
+
+include(CTest)
+if(BUILD_TESTING)
+  add_executable(core_tests tests/core_tests.cpp)
+  target_link_libraries(core_tests PRIVATE life_core)
+  add_test(NAME core_tests COMMAND core_tests)
+endif()

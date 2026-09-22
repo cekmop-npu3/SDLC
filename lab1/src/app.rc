@@ -1,0 +1,20 @@
+#pragma code_page(65001)
+
+#include <windows.h>
+#include "resource.h"
+
+IDD_INPUT DIALOGEX 0, 0, 270, 132
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Ввод данных"
+FONT 9, "Segoe UI"
+BEGIN
+    LTEXT "Количество раз в день (0–10000):", -1, 12, 10, 240, 12
+    LTEXT "Разговоры:", -1, 12, 33, 110, 12
+    EDITTEXT IDC_TALKS, 140, 30, 110, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT "Прослушивания музыки:", -1, 12, 56, 125, 12
+    EDITTEXT IDC_MUSIC, 140, 53, 110, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT "Ругань:", -1, 12, 79, 110, 12
+    EDITTEXT IDC_SWEARING, 140, 76, 110, 14, ES_AUTOHSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON "Рассчитать", IDOK, 92, 105, 78, 16
+    PUSHBUTTON "Отмена", IDCANCEL, 178, 105, 72, 16
+END
