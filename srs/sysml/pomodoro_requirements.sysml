@@ -34,11 +34,19 @@ package PomodoroTimer {
     }
 
     requirement taskIntegration : FunctionalRequirement {
-        doc /* Создание задач, выбор активной задачи и учёт помодоро в её прогрессе. */
+        doc /* Создание задач, выбор активной задачи, плановое число помодоро и учёт прогресса. */
+    }
+
+    requirement sessionIntegrity : FunctionalRequirement {
+        doc /* Подтверждение прерывания, фиксация статуса и причины незавершённой сессии. */
     }
 
     requirement analytics : FunctionalRequirement {
         doc /* Отображение дневной, недельной и задачной статистики завершённых сессий. */
+    }
+
+    requirement analyticsExport : FunctionalRequirement {
+        doc /* Экспорт статистики выбранного периода в CSV для Excel и LibreOffice Calc. */
     }
 
     requirement notifications : FunctionalRequirement {
@@ -56,7 +64,9 @@ package PomodoroTimer {
     satisfy goalFocus by timerControl;
     satisfy goalFocus by cycleManagement;
     satisfy goalFocus by taskIntegration;
+    satisfy goalFocus by sessionIntegrity;
     satisfy goalInsights by analytics;
+    satisfy goalInsights by analyticsExport;
     satisfy analytics by localStorage;
     satisfy timerControl by winApiGui;
 }
