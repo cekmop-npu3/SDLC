@@ -55,9 +55,9 @@
 * [модель требований](sysml/pomodoro_requirements.sysml);
 * [прототип главного окна](sysml/pomodoro_timer_ui.sysml);
 * [прототип аналитики](sysml/pomodoro_analytics_ui.sysml);
-* [скриншот viewer: требования](gui/viewer_requirements.png);
-* [скриншот viewer: таймер](gui/viewer_timer.png);
-* [скриншот viewer: аналитика](gui/viewer_analytics.png).
+* [PNG-экспорт: модель требований](gui/requirements.png);
+* [PNG-экспорт: прототип главного окна](gui/timer-ui.png);
+* [PNG-экспорт: прототип аналитики](gui/analytics-ui.png).
 
 ### 3.2 Функциональные требования
 
