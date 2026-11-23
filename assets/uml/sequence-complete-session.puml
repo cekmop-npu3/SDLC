@@ -1,0 +1,18 @@
+@startuml
+title Диаграмма последовательности запуска фокус-сессии
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Times New Roman"
+actor Пользователь
+participant "MainWindow\nWinAPI" as UI
+participant TimerController as Timer
+participant SessionJournal as Journal
+Пользователь -> UI : Нажать «Старт»
+UI -> Timer : start(activeTaskId)
+Timer -> Timer : Проверить настройки validateSession()
+Timer -> Timer : Создать PomodoroSession\nв состоянии «Готова»
+Timer -> Journal : Сохранить сессию save(session)
+Journal --> Timer : Сохранённая сессия
+Timer --> UI : SessionDTO
+UI --> Пользователь : Показать активный таймер
+@enduml

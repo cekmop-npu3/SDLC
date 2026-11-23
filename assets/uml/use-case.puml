@@ -1,0 +1,44 @@
+@startuml
+title Диаграмма вариантов использования Pomodoro-таймера
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Times New Roman"
+left to right direction
+actor "Пользователь" as guest
+actor "Пользователь" as user
+actor "Система" as system
+rectangle "Windows\nNotification API" as windows <<external>>
+usecase "Открыть\nприложение" as open
+usecase "Выбрать активную\nзадачу" as active
+usecase "Настроить\nдлительности фаз" as durations
+usecase "Запустить\nфокус-сессию" as start
+usecase "Пауза и\nпродолжение" as pause
+usecase "Изменить\nактивную задачу" as change
+usecase "Сброс\nсессии" as reset
+usecase "Настройка\nуведомлений" as notificationSettings
+usecase "Просмотр журнала\nсессий" as journal
+usecase "Завершение\nфокус-сессии" as finish
+usecase "Просмотр\nаналитики" as analytics
+usecase "Проверка\nнастроек" as validation
+usecase "Показ\nуведомления" as notify
+usecase "Управление\nнастройками" as settings
+usecase "Сброс\nстатистики" as clearStats
+usecase "Экспорт\nCSV" as csv
+guest --> open
+guest --> active
+user --> start
+user --> pause
+user --> journal
+user --> analytics
+user --> finish
+user --> notify
+system --> settings
+system --> clearStats
+system --> csv
+durations .> start : <<extend>>
+start .> validation : <<include>>
+reset .> validation : <<include>>
+change -|> pause
+notificationSettings -|> settings
+notify --> windows
+@enduml
